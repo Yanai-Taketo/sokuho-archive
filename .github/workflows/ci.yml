@@ -1,0 +1,42 @@
+name: ci
+
+on:
+  push:
+    branches: ["**"]
+    paths-ignore: ["data/**"]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        # 3.9 is the floor declared in pyproject; 3.12 is what the archiver runs on.
+        python-version: ["3.9", "3.12", "3.13"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Run the test suite
+        run: python -m unittest discover -s tests -v
+        env:
+          PYTHONPATH: src
+
+  integrity:
+    # The archive must stay internally consistent: every snapshot parses, every
+    # filename matches its content hash, every event row is well formed.
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: python -m sokuho_archive verify
+        env:
+          PYTHONPATH: src

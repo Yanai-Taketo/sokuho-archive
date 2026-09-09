@@ -1,0 +1,16 @@
+# Alternative to the .service unit: poll on a timer instead of holding a
+# long-lived process. Useful on machines that sleep, or where a supervised
+# daemon is unwelcome. Pair with a matching oneshot service that runs
+# `python3 -m sokuho_archive once`.
+
+[Unit]
+Description=Poll the NHK sokuho feed
+
+[Timer]
+OnBootSec=1min
+OnUnitActiveSec=1min
+AccuracySec=10s
+Persistent=true
+
+[Install]
+WantedBy=timers.target

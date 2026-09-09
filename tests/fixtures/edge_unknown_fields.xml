@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<flashNews flag="1" pubDate="Fri, 06 May 2011 21:12:00 +0900" region="kanto">
+<report category="1" date="2011/05/06 18:54" link="" priority="high" id="abc123">
+<line>未知の属性つき</line>
+<media type="image" url="https://example.invalid/x.jpg"/>
+</report>
+</flashNews>

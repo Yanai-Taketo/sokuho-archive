@@ -1,0 +1,78 @@
+name: archive
+
+# Poll NHK's 速報 feed and commit anything new ("git scraping").
+#
+# Cadence note: GitHub's scheduler makes no promptness guarantee -- a */5 cron is
+# routinely delayed under load and can be skipped entirely. That is acceptable
+# here because a 速報 normally stays in the feed for many minutes, but it does
+# make this a best-effort archive rather than a guaranteed one. For no-miss
+# capture, run the daemon instead (see deploy/ and the README).
+on:
+  schedule:
+    - cron: "*/5 * * * *"
+  workflow_dispatch:
+    inputs:
+      max_runtime:
+        description: "Seconds to keep polling within this run (0 = a single poll)"
+        required: false
+        default: "0"
+
+# Never let two runs commit at once; a concurrent run would only race the push.
+concurrency:
+  group: archive
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+env:
+  PYTHONPATH: src
+
+jobs:
+  poll:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Poll the feed
+        env:
+          # A single poll by default. Raising this holds a runner for that long on
+          # every cron tick: free on public repositories, but it consumes paid
+          # Actions minutes on private ones -- opt in knowingly.
+          MAX_RUNTIME: ${{ github.event.inputs.max_runtime || '0' }}
+        run: |
+          set -euo pipefail
+          if [ "${MAX_RUNTIME}" = "0" ]; then
+            python -m sokuho_archive once
+          else
+            python -m sokuho_archive watch --interval 60 --max-runtime "${MAX_RUNTIME}"
+          fi
+
+      - name: Commit new observations
+        run: |
+          set -euo pipefail
+          if [ -z "$(git status --porcelain data)" ]; then
+            echo "nothing new to record"
+            exit 0
+          fi
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data
+          git commit -m "archive: $(date -u '+%Y-%m-%dT%H:%M:%SZ')"
+          # A concurrent or delayed run may have pushed meanwhile; rebase and retry.
+          for attempt in 1 2 3 4 5; do
+            if git push origin "HEAD:${GITHUB_REF_NAME}"; then
+              echo "pushed on attempt ${attempt}"
+              exit 0
+            fi
+            echo "push failed (attempt ${attempt}); rebasing onto origin"
+            git pull --rebase --autostash origin "${GITHUB_REF_NAME}" || true
+            sleep "$(( attempt * 3 ))"
+          done
+          echo "could not push after 5 attempts" >&2
+          exit 1

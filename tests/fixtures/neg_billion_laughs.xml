@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<!DOCTYPE flashNews [
+<!ENTITY a "aaaaaaaaaa">
+<!ENTITY b "&a;&a;&a;&a;&a;&a;&a;&a;&a;&a;">
+<!ENTITY c "&b;&b;&b;&b;&b;&b;&b;&b;&b;&b;">
+<!ENTITY d "&c;&c;&c;&c;&c;&c;&c;&c;&c;&c;">
+]>
+<flashNews flag="1" pubDate="Fri, 06 May 2011 21:12:00 +0900">
+<report category="1" date="2011/05/06 18:54" link=""><line>&d;</line></report>
+</flashNews>

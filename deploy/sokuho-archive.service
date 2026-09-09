@@ -1,0 +1,39 @@
+# Continuous, no-miss capture. Unlike the GitHub Actions cron this polls on a
+# real 60-second cadence, so short-lived 速報 are not missed.
+#
+#   sudo cp deploy/sokuho-archive.service /etc/systemd/system/
+#   sudo systemctl daemon-reload
+#   sudo systemctl enable --now sokuho-archive
+#
+# Adjust User= and WorkingDirectory= to match your checkout.
+
+[Unit]
+Description=NHK sokuho (breaking news) archiver
+Documentation=https://github.com/Yanai-Taketo/sokuho-archive
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=sokuho
+WorkingDirectory=/opt/sokuho-archive
+Environment=PYTHONPATH=/opt/sokuho-archive/src
+Environment=PYTHONUNBUFFERED=1
+ExecStart=/usr/bin/python3 -m sokuho_archive watch --interval 60
+Restart=always
+RestartSec=30
+
+# The archiver only needs to read its own code and write data/.
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/opt/sokuho-archive/data
+ProtectKernelTunables=true
+ProtectControlGroups=true
+RestrictNamespaces=true
+RestrictSUIDSGID=true
+MemoryMax=256M
+
+[Install]
+WantedBy=multi-user.target

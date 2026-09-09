@@ -1,0 +1,30 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "sokuho-archive"
+version = "1.0.0"
+description = "NHKニュース速報 (NHK breaking news) XML feed archiver"
+readme = "README.md"
+requires-python = ">=3.9"
+license = { text = "MIT" }
+keywords = ["nhk", "news", "archive", "japanese", "sokuho", "速報"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Topic :: Internet :: WWW/HTTP",
+    "Natural Language :: Japanese",
+]
+# Standard library only, by design: the archiver has to keep running unattended
+# for years, and every dependency is a future breakage.
+dependencies = []
+
+[project.scripts]
+sokuho-archive = "sokuho_archive.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]

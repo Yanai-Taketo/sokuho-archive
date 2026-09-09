@@ -1,0 +1,5 @@
+<?xml version="1.0"?>
+<!DOCTYPE flashNews [<!ENTITY xxe SYSTEM "file:///etc/passwd">]>
+<flashNews flag="1" pubDate="Fri, 06 May 2011 21:12:00 +0900">
+<report category="1" date="2011/05/06 18:54" link=""><line>&xxe;</line></report>
+</flashNews>

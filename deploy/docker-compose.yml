@@ -1,0 +1,10 @@
+services:
+  sokuho-archive:
+    build:
+      context: ..
+      dockerfile: deploy/Dockerfile
+    image: sokuho-archive:1.0.0
+    restart: unless-stopped
+    volumes:
+      - ./data:/data
+    command: ["watch", "--interval", "60"]

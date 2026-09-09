@@ -1,0 +1,21 @@
+# Derived, rebuildable from data/events/*.jsonl with `sokuho-archive reindex`.
+data/index.sqlite3
+data/index.sqlite3-wal
+data/index.sqlite3-shm
+
+# Process lock; never meaningful outside a running machine.
+data/.lock
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+*.egg-info/
+build/
+dist/
+.pytest_cache/
+.coverage
+htmlcov/
+.mypy_cache/
+.ruff_cache/

@@ -1,0 +1,5 @@
+{
+  "error": "Waf Error",
+  "status": 403,
+  "error_description": "Access denied. Suspicious activity detected."
+}
