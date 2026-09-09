@@ -20,7 +20,6 @@ optional: an ``<rss>`` document parses perfectly and means nothing here.
 
 from __future__ import annotations
 
-import dataclasses
 import re
 import xml.etree.ElementTree as ET
 

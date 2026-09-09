@@ -163,15 +163,53 @@ class CommandLine(ArchiveFixture):
         self.assertEqual(code, 1)
 
     def test_status_is_healthy_after_a_recent_poll(self):
+        self.store.note_poll(success=True)
         code, out = self.run_cli("status")
         self.assertEqual(code, 0)
-        self.assertLess(json.loads(out)["age_hours"], 1)
+        report = json.loads(out)
+        self.assertTrue(report["healthy"])
+        self.assertLess(report["age_hours"], 1)
+
+    def test_a_quiet_but_healthy_archiver_is_not_reported_stale(self):
+        """The regression that matters most.
+
+        Almost every poll returns 304, and nothing about the archive changes for
+        hours at a time. If liveness were only recorded when the feed changed, a
+        perfectly healthy archiver would be declared stale during any quiet
+        stretch -- and the Docker healthcheck would restart it on the hour.
+        """
+        state = self.store.load_state()
+        state["last_change_utc"] = "2000-01-01T00:00:00Z"
+        state.pop("heartbeat_utc", None)
+        self.store.save_state(state)
+        self.store.note_poll(success=True)          # a 304: successful, no change
+        code, out = self.run_cli("status", "--stale-hours", "1")
+        self.assertEqual(code, 0)
+        self.assertEqual(json.loads(out)["liveness_source"], "runtime")
 
     def test_status_reports_staleness_with_a_distinct_exit_code(self):
         """Silence must be loud: a blocked archiver looks like a quiet news day."""
+        self.store.note_poll(success=True)
+        runtime = self.store.load_runtime()
+        runtime["last_success_utc"] = "2000-01-01T00:00:00Z"
+        self.store.runtime_path.write_text(json.dumps(runtime), encoding="utf-8")
+        code, _ = self.run_cli("status")
+        self.assertEqual(code, 3)
+
+    def test_status_falls_back_to_committed_state_on_a_fresh_checkout(self):
+        """A CI runner has no runtime.json; the heartbeat has to carry liveness."""
+        self.assertFalse(self.store.runtime_path.exists())
         state = self.store.load_state()
-        state["last_success_utc"] = "2000-01-01T00:00:00Z"
+        state["heartbeat_utc"] = "2000-01-01T00:00:00Z"
         self.store.save_state(state)
+        code, out = self.run_cli("status")
+        self.assertEqual(code, 3)
+
+    def test_status_survives_an_unreadable_timestamp(self):
+        self.store.note_poll(success=True)
+        runtime = self.store.load_runtime()
+        runtime["last_success_utc"] = "not a timestamp"
+        self.store.runtime_path.write_text(json.dumps(runtime), encoding="utf-8")
         code, _ = self.run_cli("status")
         self.assertEqual(code, 3)
 
@@ -203,6 +241,24 @@ class PollCommand(unittest.TestCase):
         with redirect_stdout(buffer):
             code = main(["--data-dir", str(self.data), *args])
         return code, buffer.getvalue()
+
+    def test_a_304_still_records_liveness(self):
+        from sokuho_archive.fetcher import FetchResult
+        result = FetchResult(url="u", status=304, body=None, etag='"e"', last_modified="lm",
+                             fetched_at="now", elapsed_ms=1, attempts=1)
+        with mock.patch("sokuho_archive.fetcher.Fetcher.fetch", return_value=result):
+            self.run_cli("once")
+        self.assertTrue(Store(self.data).load_runtime()["last_success_utc"])
+
+    def test_a_rejected_response_counts_as_a_failed_poll(self):
+        from sokuho_archive.fetcher import FetchResult
+        result = FetchResult(url="u", status=200, body=b'{"error":"Waf Error"}', etag=None,
+                             last_modified=None, fetched_at="now", elapsed_ms=1, attempts=1)
+        with mock.patch("sokuho_archive.fetcher.Fetcher.fetch", return_value=result):
+            self.run_cli("once")
+        runtime = Store(self.data).load_runtime()
+        self.assertEqual(runtime["consecutive_failures"], 1)
+        self.assertIn("malformed_xml", runtime["last_failure_detail"])
 
     def test_once_records_a_valid_document(self):
         from sokuho_archive.fetcher import FetchResult

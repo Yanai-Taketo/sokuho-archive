@@ -142,13 +142,30 @@ class StateHandling(StoreTestCase):
         self.store.state_path.write_text("{ this is not json", encoding="utf-8")
         self.assertTrue(self.record(document("1", [A])).changed)
 
-    def test_state_records_liveness_and_counters(self):
+    def test_committed_state_describes_the_archive_only(self):
         self.record(document("1", [A]))
         state = self.store.load_state()
-        self.assertEqual(state["poll_count"], 1)
         self.assertEqual(state["change_count"], 1)
-        self.assertTrue(state["last_success_utc"])
+        self.assertTrue(state["last_change_utc"])
         self.assertEqual(len(state["active_events"]), 1)
+
+    def test_committed_state_excludes_per_poll_liveness(self):
+        """Otherwise the committed file would change on every poll.
+
+        A five-minute cron would then produce a commit per poll and bury the
+        actual archive history under liveness noise.
+        """
+        self.record(document("1", [A]))
+        state = self.store.load_state()
+        for volatile in ("poll_count", "last_poll_utc", "last_success_utc"):
+            self.assertNotIn(volatile, state)
+
+    def test_unchanged_feed_does_not_rewrite_committed_state(self):
+        raw = document("1", [A])
+        self.record(raw)
+        before = self.store.state_path.read_bytes()
+        self.record(raw)
+        self.assertEqual(self.store.state_path.read_bytes(), before)
 
     def test_cleared_events_leave_the_active_set(self):
         self.record(document("1", [A]))
@@ -160,6 +177,40 @@ class StateHandling(StoreTestCase):
         for minute in range(_RECENT_REVISIONS + 20):
             self.record(document("1", [("1", f"2026/09/09 {minute // 60:02d}:{minute % 60:02d}", "", ["x"])]))
         self.assertLessEqual(len(self.store.load_state()["recent_revisions"]), _RECENT_REVISIONS)
+
+
+class RuntimeLiveness(StoreTestCase):
+    def test_every_poll_is_counted_including_unchanged_ones(self):
+        self.store.note_poll(success=True)
+        self.store.note_poll(success=True)
+        runtime = self.store.load_runtime()
+        self.assertEqual(runtime["poll_count"], 2)
+        self.assertEqual(runtime["success_count"], 2)
+        self.assertTrue(runtime["last_success_utc"])
+
+    def test_failures_are_counted_and_described(self):
+        self.store.note_poll(success=False, detail="http_error: 403")
+        runtime = self.store.load_runtime()
+        self.assertEqual(runtime["consecutive_failures"], 1)
+        self.assertEqual(runtime["last_failure_detail"], "http_error: 403")
+        self.assertIsNone(runtime.get("last_success_utc"))
+
+    def test_a_success_clears_the_failure_streak(self):
+        self.store.note_poll(success=False, detail="boom")
+        self.store.note_poll(success=True)
+        runtime = self.store.load_runtime()
+        self.assertEqual(runtime["consecutive_failures"], 0)
+        self.assertNotIn("last_failure_detail", runtime)
+
+    def test_runtime_is_separate_from_the_committed_file(self):
+        self.store.note_poll(success=True)
+        self.assertTrue(self.store.runtime_path.exists())
+        self.assertFalse(self.store.state_path.exists())
+
+    def test_corrupt_runtime_does_not_stop_the_archiver(self):
+        self.store.root.mkdir(parents=True, exist_ok=True)
+        self.store.runtime_path.write_text("{ broken", encoding="utf-8")
+        self.assertEqual(self.store.note_poll(success=True)["poll_count"], 1)
 
 
 class Heartbeat(StoreTestCase):

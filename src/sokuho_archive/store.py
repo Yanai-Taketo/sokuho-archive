@@ -7,12 +7,21 @@ Layout (all under ``data/`` by default)::
       events/events-2026-09.jsonl
       latest.xml
       state.json
+      runtime.json
 
 **Raw snapshots are the source of truth.**  Everything else can be rebuilt from
 them with ``reindex``.  A snapshot is written only when the bytes differ from
 the previous one, because NHK rewrites the document only when something
 actually changes -- polling every five minutes for a year yields a few thousand
 files, not a hundred thousand.
+
+**Liveness is kept apart from archive state.**  ``state.json`` describes the
+archive and is committed; it changes only when the feed changes.  ``runtime.json``
+records that the archiver is alive -- every poll, including the 304s that make up
+almost all of them -- and is *not* committed, because a file that changed every
+five minutes would bury the real history under liveness commits.  Keeping the two
+apart is what lets ``status`` answer "is it running?" without either lying during
+a quiet spell or producing a commit per poll.
 
 **The event log records transitions, not observations.**  Appending a row per
 poll would be enormous and mostly redundant; instead each flash produces at most
@@ -130,6 +139,7 @@ class Store:
         self.raw_dir = self.root / "raw"
         self.events_dir = self.root / "events"
         self.state_path = self.root / "state.json"
+        self.runtime_path = self.root / "runtime.json"
         self.latest_path = self.root / "latest.xml"
         self.lock_path = self.root / ".lock"
 
@@ -182,13 +192,54 @@ class Store:
         data.setdefault("state_version", _STATE_VERSION)
         data.setdefault("active_events", {})
         data.setdefault("recent_revisions", [])
-        data.setdefault("poll_count", 0)
         data.setdefault("change_count", 0)
         return data
 
     def save_state(self, state: dict[str, Any]) -> None:
         payload = json.dumps(state, ensure_ascii=False, indent=2, sort_keys=True) + "\n"
         _atomic_write(self.state_path, payload.encode("utf-8"))
+
+    # -- runtime liveness --------------------------------------------------
+
+    def load_runtime(self) -> dict[str, Any]:
+        """Read ``runtime.json``, tolerating absence or corruption."""
+        try:
+            data = json.loads(self.runtime_path.read_text(encoding="utf-8"))
+        except (OSError, ValueError):
+            data = {}
+        if not isinstance(data, dict):
+            data = {}
+        data.setdefault("poll_count", 0)
+        data.setdefault("success_count", 0)
+        data.setdefault("consecutive_failures", 0)
+        return data
+
+    def note_poll(self, *, success: bool, detail: str = "") -> dict[str, Any]:
+        """Record that a poll happened, whatever its outcome.
+
+        This must be called for *every* poll -- above all for the 304s that are
+        the overwhelmingly common case.  Recording liveness only when the feed
+        changes would make a healthy archiver indistinguishable from a dead one
+        during any quiet stretch, which is exactly the failure ``status`` exists
+        to catch.
+        """
+        now_iso = utc_now_iso()
+        runtime = self.load_runtime()
+        runtime["poll_count"] = int(runtime.get("poll_count", 0)) + 1
+        runtime["last_poll_utc"] = now_iso
+        if success:
+            runtime["success_count"] = int(runtime.get("success_count", 0)) + 1
+            runtime["last_success_utc"] = now_iso
+            runtime["consecutive_failures"] = 0
+            runtime.pop("last_failure_detail", None)
+        else:
+            runtime["consecutive_failures"] = int(runtime.get("consecutive_failures", 0)) + 1
+            runtime["last_failure_utc"] = now_iso
+            if detail:
+                runtime["last_failure_detail"] = detail
+        payload = json.dumps(runtime, ensure_ascii=False, indent=2, sort_keys=True) + "\n"
+        _atomic_write(self.runtime_path, payload.encode("utf-8"))
+        return runtime
 
     # -- paths -------------------------------------------------------------
 
@@ -226,9 +277,6 @@ class Store:
         digest = hashlib.sha256(raw).hexdigest()
 
         state = self.load_state()
-        state["poll_count"] = int(state.get("poll_count", 0)) + 1
-        state["last_poll_utc"] = now_iso
-        state["last_success_utc"] = now_iso
         if fetch_meta:
             state["etag"] = fetch_meta.get("etag")
             state["last_modified"] = fetch_meta.get("last_modified")

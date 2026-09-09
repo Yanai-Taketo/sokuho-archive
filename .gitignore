@@ -19,3 +19,7 @@ dist/
 htmlcov/
 .mypy_cache/
 .ruff_cache/
+
+# Volatile liveness record; rewritten on every poll, so committing it would
+# bury the archive history under one commit per poll. `status` reads it locally.
+data/runtime.json

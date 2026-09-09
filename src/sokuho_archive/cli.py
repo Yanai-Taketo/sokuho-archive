@@ -23,7 +23,6 @@ import pathlib
 import signal
 import sys
 import time
-from typing import Any
 
 from . import __version__, index as index_mod
 from .fetcher import DEFAULT_USER_AGENT, PRIMARY_URL, FetchError, Fetcher
@@ -67,18 +66,24 @@ def poll_once(store: Store, fetcher: Fetcher, *, quiet: bool = False,
     try:
         result = fetcher.fetch(etag=etag, last_modified=last_modified)
     except FetchError as exc:
+        store.note_poll(success=False, detail=f"{exc.reason}: {exc.detail}")
         _log(f"FETCH FAILED ({exc.reason}): {exc.detail}", quiet=False)
         return EXIT_FAIL
 
     if result.not_modified:
+        # A 304 is a fully successful poll and by far the commonest outcome;
+        # not recording it here is what would make a healthy archiver look dead.
+        store.note_poll(success=True)
         _log(f"304 not modified ({result.attempts} attempt(s))", quiet=quiet)
         return EXIT_OK
 
     try:
         flash = parse(result.body or b"")
     except ParseError as exc:
-        # Deliberately *not* recorded: an error page stored as an observation
-        # would be indistinguishable from NHK genuinely publishing nothing.
+        # Deliberately *not* recorded as an observation: an error page stored
+        # here would be indistinguishable from NHK genuinely publishing nothing.
+        # It is still a failed poll, and must show up as one.
+        store.note_poll(success=False, detail=f"{exc.reason}: {exc.detail}")
         _log(f"REJECTED RESPONSE ({exc.reason}): {exc.detail}", quiet=False)
         return EXIT_FAIL
 
@@ -88,6 +93,7 @@ def poll_once(store: Store, fetcher: Fetcher, *, quiet: bool = False,
         fetch_meta={"etag": result.etag, "last_modified": result.last_modified, "url": result.url},
         heartbeat_hours=heartbeat_hours,
     )
+    store.note_poll(success=True)
     verb = "CHANGED" if outcome.changed else "unchanged"
     _log(f"{verb}: flag={flash.flag} reports={len(flash.reports)} -- {outcome.summary()}",
          quiet=quiet and not outcome.changed)
@@ -172,30 +178,51 @@ def cmd_status(args) -> int:
     """Report health, and fail loudly when the archive has gone stale.
 
     Silence is the dangerous failure here: an archiver blocked by a WAF looks
-    exactly like a quiet news day.  ``last_success_utc`` distinguishes them, so
-    a stale value is an error, not information.
+    exactly like a quiet news day.  Liveness comes from ``runtime.json``, which
+    every poll updates.  On a fresh checkout (a CI run, a new clone) that file
+    does not exist, so the committed heartbeat is used instead -- which is why
+    ``--stale-hours`` should exceed the archiver's ``--heartbeat-hours`` when
+    checking a repository rather than a running machine.
     """
-    store = _store(args)
-    state = store.load_state()
-    if not state.get("last_success_utc"):
-        print("no successful poll recorded yet")
-        return EXIT_STALE
-
-    from .timeutil import UTC
     import datetime as dt
 
-    last = dt.datetime.strptime(state["last_success_utc"], "%Y-%m-%dT%H:%M:%SZ").replace(tzinfo=UTC)
+    from .timeutil import UTC
+
+    store = _store(args)
+    state = store.load_state()
+    runtime = store.load_runtime()
+
+    marker = runtime.get("last_success_utc")
+    source = "runtime"
+    if not marker:
+        marker = state.get("heartbeat_utc") or state.get("last_change_utc")
+        source = "committed archive state"
+    if not marker:
+        print("no successful poll recorded yet", file=sys.stderr)
+        return EXIT_STALE
+
+    try:
+        last = dt.datetime.strptime(marker, "%Y-%m-%dT%H:%M:%SZ").replace(tzinfo=UTC)
+    except (TypeError, ValueError):
+        print(f"unreadable timestamp {marker!r}", file=sys.stderr)
+        return EXIT_STALE
+
     age_h = (utc_now() - last).total_seconds() / 3600.0
     report = {
-        "last_success_utc": state["last_success_utc"],
+        "healthy": age_h <= args.stale_hours,
+        "last_success_utc": marker,
+        "liveness_source": source,
         "age_hours": round(age_h, 2),
+        "stale_after_hours": args.stale_hours,
         "last_change_utc": state.get("last_change_utc"),
         "flag": state.get("flag"),
         "active_events": len(state.get("active_events") or {}),
-        "polls": state.get("poll_count"),
+        "polls": runtime.get("poll_count"),
+        "consecutive_failures": runtime.get("consecutive_failures"),
         "changes": state.get("change_count"),
-        "stale_after_hours": args.stale_hours,
     }
+    if runtime.get("last_failure_detail"):
+        report["last_failure"] = runtime.get("last_failure_detail")
     print(json.dumps(report, ensure_ascii=False, indent=2))
     if age_h > args.stale_hours:
         print(f"STALE: no successful poll for {age_h:.1f}h", file=sys.stderr)
