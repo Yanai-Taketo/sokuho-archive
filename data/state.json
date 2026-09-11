@@ -1,30 +1,22 @@
 {
-  "active": true,
-  "active_details": {
-    "c0585fd89432a596": {
-      "category": "1",
-      "date_raw": "2026/09/11 09:18",
-      "text": "中部電力　浜岡原発の再稼働に向けた審査　申請取り下げで最終調整　データ不正問題(09:18)"
-    }
-  },
-  "active_events": {
-    "c0585fd89432a596": "30951be32088b1ee"
-  },
-  "change_count": 5,
-  "etag": "\"86d4066e955abbdbbb245b418bd662c4\"",
-  "flag": "1",
-  "last_change_utc": "2026-09-11T00:30:33Z",
-  "last_modified": "Fri, 11 Sep 2026 00:18:28 GMT",
+  "active": false,
+  "active_details": {},
+  "active_events": {},
+  "change_count": 6,
+  "etag": "\"567ffb438e1045f2cc148d1c24ae0bf4\"",
+  "flag": "0",
+  "last_change_utc": "2026-09-11T05:06:31Z",
+  "last_modified": "Fri, 11 Sep 2026 00:38:18 GMT",
   "last_poll_utc": "2026-09-09T01:15:32Z",
-  "last_sha256": "44f6f964c8d189e9a457b4b68ab8f3b36d1ff8316fcf0609f1e202337a295be4",
+  "last_sha256": "3e1d6a95dc864a8b5e9737c8142c85b6a0746b41604bbc346c7340544e1ea6f4",
   "last_success_utc": "2026-09-09T01:15:32Z",
   "poll_count": 1,
-  "pub_date_raw": "Fri, 11 Sep 2026 09:18:09 +0900",
-  "pub_date_utc": "2026-09-11T00:18:09Z",
+  "pub_date_raw": "Fri, 11 Sep 2026 09:38:00 +0900",
+  "pub_date_utc": "2026-09-11T00:38:00Z",
   "recent_revisions": [
     "30951be32088b1ee"
   ],
-  "report_count": 1,
+  "report_count": 0,
   "source_url": "https://api.web.nhk/sokuho/news/sokuho_news.xml",
   "state_version": 1
 }
