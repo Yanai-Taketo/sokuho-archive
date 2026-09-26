@@ -1,22 +1,31 @@
 {
-  "active": false,
-  "active_details": {},
-  "active_events": {},
-  "change_count": 25,
-  "etag": "\"71e789fda133bddee1fe22225e8c3b10\"",
-  "flag": "0",
-  "last_change_utc": "2026-09-25T12:08:04Z",
-  "last_modified": "Fri, 25 Sep 2026 07:25:17 GMT",
+  "active": true,
+  "active_details": {
+    "1ce3ac7800c4d156": {
+      "category": "2",
+      "date_raw": "2026/09/26 10:31",
+      "text": "■震度４■熊本地方(10:31)"
+    }
+  },
+  "active_events": {
+    "1ce3ac7800c4d156": "ada778347e742f40"
+  },
+  "change_count": 26,
+  "etag": "\"e4c1a040cb9312c0803a5595ecca8906\"",
+  "flag": "1",
+  "last_change_utc": "2026-09-26T01:47:13Z",
+  "last_modified": "Sat, 26 Sep 2026 01:35:54 GMT",
   "last_poll_utc": "2026-09-09T01:15:32Z",
-  "last_sha256": "33b6c847b35b765cd453088edf6aab8ee36481a0377a663d44034a30981ad47e",
+  "last_sha256": "adeb17d12f25cd0c26e81e335b4c1855bf1a368f59f58de274cda5328b5e1257",
   "last_success_utc": "2026-09-09T01:15:32Z",
   "poll_count": 1,
-  "pub_date_raw": "Fri, 25 Sep 2026 16:25:00 +0900",
-  "pub_date_utc": "2026-09-25T07:25:00Z",
+  "pub_date_raw": "Sat, 26 Sep 2026 10:35:36 +0900",
+  "pub_date_utc": "2026-09-26T01:35:36Z",
   "recent_revisions": [
-    "30951be32088b1ee"
+    "30951be32088b1ee",
+    "ada778347e742f40"
   ],
-  "report_count": 0,
+  "report_count": 1,
   "source_url": "https://api.web.nhk/sokuho/news/sokuho_news.xml",
   "state_version": 1
 }
