@@ -1,23 +1,39 @@
 {
-  "active": false,
-  "active_details": {},
-  "active_events": {},
-  "change_count": 35,
-  "etag": "\"157c0cfff4cc903bd1e2e0c66cacceea\"",
-  "flag": "0",
-  "last_change_utc": "2026-10-02T12:49:12Z",
-  "last_modified": "Fri, 02 Oct 2026 12:37:16 GMT",
+  "active": true,
+  "active_details": {
+    "2e715e36bc4f5fc6": {
+      "category": "1",
+      "date_raw": "2026/10/03 06:58",
+      "text": "北朝鮮の弾道ミサイルの可能性あるもの　日本のＥＥＺ外に落下推定　政府関係者(06:58)"
+    },
+    "551840efb55e63f7": {
+      "category": "1",
+      "date_raw": "2026/10/03 06:48",
+      "text": "北朝鮮　弾道ミサイルの可能性あるもの　発射　防衛省が発表(06:48)"
+    }
+  },
+  "active_events": {
+    "2e715e36bc4f5fc6": "1620ff5cd016d023",
+    "551840efb55e63f7": "0c4252906e21496a"
+  },
+  "change_count": 36,
+  "etag": "\"c3ff71fe1fcc7966330cce456a791a2a\"",
+  "flag": "1",
+  "last_change_utc": "2026-10-02T22:08:03Z",
+  "last_modified": "Fri, 02 Oct 2026 21:58:49 GMT",
   "last_poll_utc": "2026-09-09T01:15:32Z",
-  "last_sha256": "975d1faf27439952d6aeba2b780b6a9f8a9db18c45f6c4a64347243ce5233f8a",
+  "last_sha256": "e445a97260141eee7d3492088b095c92dfaf47f4803280fe7bdb235c492937fb",
   "last_success_utc": "2026-09-09T01:15:32Z",
   "poll_count": 1,
-  "pub_date_raw": "Fri, 02 Oct 2026 21:37:00 +0900",
-  "pub_date_utc": "2026-10-02T12:37:00Z",
+  "pub_date_raw": "Sat, 03 Oct 2026 06:58:32 +0900",
+  "pub_date_utc": "2026-10-02T21:58:32Z",
   "recent_revisions": [
     "30951be32088b1ee",
-    "ada778347e742f40"
+    "ada778347e742f40",
+    "1620ff5cd016d023",
+    "0c4252906e21496a"
   ],
-  "report_count": 0,
+  "report_count": 2,
   "source_url": "https://api.web.nhk/sokuho/news/sokuho_news.xml",
   "state_version": 1
 }
