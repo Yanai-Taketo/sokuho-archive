@@ -1,26 +1,18 @@
 {
-  "active": true,
-  "active_details": {
-    "baae06928a8c3287": {
-      "category": "1",
-      "date_raw": "2026/10/03 10:02",
-      "text": "富山市の国勢調査人口水増し問題で市役所を捜索　統計法違反の疑い　複数職員関与か　富山県警(10:02)"
-    }
-  },
-  "active_events": {
-    "baae06928a8c3287": "b1b298c485a9ae68"
-  },
-  "change_count": 37,
-  "etag": "\"bc0e137b8e52f9dc5053e9721f3d5124\"",
-  "flag": "1",
-  "last_change_utc": "2026-10-03T01:10:11Z",
-  "last_modified": "Sat, 03 Oct 2026 01:02:48 GMT",
+  "active": false,
+  "active_details": {},
+  "active_events": {},
+  "change_count": 38,
+  "etag": "\"09a3bfc05f0bd1a02fb1d5ae7e4b01cc\"",
+  "flag": "0",
+  "last_change_utc": "2026-10-03T06:31:46Z",
+  "last_modified": "Sat, 03 Oct 2026 01:22:16 GMT",
   "last_poll_utc": "2026-09-09T01:15:32Z",
-  "last_sha256": "5380130e46d161db36467ab4e590c850d52c1366f85ed742ad32718c7d94fb38",
+  "last_sha256": "e5de616b5faaaf49777378cf217d52c102359ab5c2b2a67c7552e8264477e56d",
   "last_success_utc": "2026-09-09T01:15:32Z",
   "poll_count": 1,
-  "pub_date_raw": "Sat, 03 Oct 2026 10:02:30 +0900",
-  "pub_date_utc": "2026-10-03T01:02:30Z",
+  "pub_date_raw": "Sat, 03 Oct 2026 10:22:00 +0900",
+  "pub_date_utc": "2026-10-03T01:22:00Z",
   "recent_revisions": [
     "30951be32088b1ee",
     "ada778347e742f40",
@@ -28,7 +20,7 @@
     "0c4252906e21496a",
     "b1b298c485a9ae68"
   ],
-  "report_count": 1,
+  "report_count": 0,
   "source_url": "https://api.web.nhk/sokuho/news/sokuho_news.xml",
   "state_version": 1
 }
