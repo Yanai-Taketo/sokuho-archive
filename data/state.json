@@ -1,26 +1,18 @@
 {
-  "active": true,
-  "active_details": {
-    "7984096a2b6f35c2": {
-      "category": "2",
-      "date_raw": "2026/10/08 04:13",
-      "text": "■震度４■千葉北東部(04:13)　■震度３■茨城南部　千葉北西部(04:13)"
-    }
-  },
-  "active_events": {
-    "7984096a2b6f35c2": "ee7ad1d8709aaac5"
-  },
-  "change_count": 44,
-  "etag": "\"9eba6f49c5c5b9a6228c7f4093fb0ebb\"",
-  "flag": "1",
-  "last_change_utc": "2026-10-07T19:25:40Z",
-  "last_modified": "Wed, 07 Oct 2026 19:18:14 GMT",
+  "active": false,
+  "active_details": {},
+  "active_events": {},
+  "change_count": 45,
+  "etag": "\"ecc4284fa4977b337d41f863b2e74eb5\"",
+  "flag": "0",
+  "last_change_utc": "2026-10-07T23:40:23Z",
+  "last_modified": "Wed, 07 Oct 2026 22:34:17 GMT",
   "last_poll_utc": "2026-09-09T01:15:32Z",
-  "last_sha256": "11032e1fcbef2eaf4d28280c2b62b976342c3241d9d80c79b7dc2486d5ed0d19",
+  "last_sha256": "e61a0ec61d59b48b53829ab735039ac1ecf542cec050e6a110c00e5421f7a13e",
   "last_success_utc": "2026-09-09T01:15:32Z",
   "poll_count": 1,
-  "pub_date_raw": "Thu, 08 Oct 2026 04:17:55 +0900",
-  "pub_date_utc": "2026-10-07T19:17:55Z",
+  "pub_date_raw": "Thu, 08 Oct 2026 07:34:00 +0900",
+  "pub_date_utc": "2026-10-07T22:34:00Z",
   "recent_revisions": [
     "30951be32088b1ee",
     "ada778347e742f40",
@@ -29,7 +21,7 @@
     "b1b298c485a9ae68",
     "ee7ad1d8709aaac5"
   ],
-  "report_count": 1,
+  "report_count": 0,
   "source_url": "https://api.web.nhk/sokuho/news/sokuho_news.xml",
   "state_version": 1
 }
