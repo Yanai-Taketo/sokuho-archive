@@ -1,26 +1,18 @@
 {
-  "active": true,
-  "active_details": {
-    "41cf01135fded14d": {
-      "category": "1",
-      "date_raw": "2026/10/24 15:35",
-      "text": "北朝鮮キム・ジョンウン総書記が中国訪問　韓国の複数メディア　中国訪問は去年９月以来(15:35)"
-    }
-  },
-  "active_events": {
-    "41cf01135fded14d": "b68d7441ad754d81"
-  },
-  "change_count": 68,
-  "etag": "\"03ecf19839ea3b5f5e2265dfffb5b202\"",
-  "flag": "1",
-  "last_change_utc": "2026-10-24T06:40:46Z",
-  "last_modified": "Sat, 24 Oct 2026 06:36:08 GMT",
+  "active": false,
+  "active_details": {},
+  "active_events": {},
+  "change_count": 69,
+  "etag": "\"d9981da4f40314df2c624a52a578ffee\"",
+  "flag": "0",
+  "last_change_utc": "2026-10-24T11:38:34Z",
+  "last_modified": "Sat, 24 Oct 2026 06:55:18 GMT",
   "last_poll_utc": "2026-09-09T01:15:32Z",
-  "last_sha256": "3a3c64318efc258472116fb516f6427804881f1d9f241d1fe54d2f35904f2a46",
+  "last_sha256": "7b0a375cc35db00e60e721aa358e8b7195b6c593f52ce2a6cc1e395ee2654569",
   "last_success_utc": "2026-09-09T01:15:32Z",
   "poll_count": 1,
-  "pub_date_raw": "Sat, 24 Oct 2026 15:35:50 +0900",
-  "pub_date_utc": "2026-10-24T06:35:50Z",
+  "pub_date_raw": "Sat, 24 Oct 2026 15:55:00 +0900",
+  "pub_date_utc": "2026-10-24T06:55:00Z",
   "recent_revisions": [
     "30951be32088b1ee",
     "ada778347e742f40",
@@ -30,7 +22,7 @@
     "ee7ad1d8709aaac5",
     "b68d7441ad754d81"
   ],
-  "report_count": 1,
+  "report_count": 0,
   "source_url": "https://api.web.nhk/sokuho/news/sokuho_news.xml",
   "state_version": 1
 }
