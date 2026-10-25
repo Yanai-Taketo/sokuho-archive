@@ -1,18 +1,26 @@
 {
-  "active": false,
-  "active_details": {},
-  "active_events": {},
-  "change_count": 69,
-  "etag": "\"d9981da4f40314df2c624a52a578ffee\"",
-  "flag": "0",
-  "last_change_utc": "2026-10-24T11:38:34Z",
-  "last_modified": "Sat, 24 Oct 2026 06:55:18 GMT",
+  "active": true,
+  "active_details": {
+    "f4e5d78969366c79": {
+      "category": "2",
+      "date_raw": "2026/10/25 08:59",
+      "text": "■震度３■熊本地方　天草・芦北　宮崎北部平野部　宮崎南部平野部(08:59)　■震度３■宮崎南部山沿い　薩摩地方　大隅地方(08:59)"
+    }
+  },
+  "active_events": {
+    "f4e5d78969366c79": "074a4bc078759e4b"
+  },
+  "change_count": 70,
+  "etag": "\"ebef16f93ed22875ec72a6d4f8c745f8\"",
+  "flag": "1",
+  "last_change_utc": "2026-10-25T00:11:28Z",
+  "last_modified": "Sun, 25 Oct 2026 00:04:32 GMT",
   "last_poll_utc": "2026-09-09T01:15:32Z",
-  "last_sha256": "7b0a375cc35db00e60e721aa358e8b7195b6c593f52ce2a6cc1e395ee2654569",
+  "last_sha256": "ef084f86167ee6e14ee1b7866b0ac01e7e18afa4a4f1b409960935d2b4aa2293",
   "last_success_utc": "2026-09-09T01:15:32Z",
   "poll_count": 1,
-  "pub_date_raw": "Sat, 24 Oct 2026 15:55:00 +0900",
-  "pub_date_utc": "2026-10-24T06:55:00Z",
+  "pub_date_raw": "Sun, 25 Oct 2026 09:04:13 +0900",
+  "pub_date_utc": "2026-10-25T00:04:13Z",
   "recent_revisions": [
     "30951be32088b1ee",
     "ada778347e742f40",
@@ -20,9 +28,10 @@
     "0c4252906e21496a",
     "b1b298c485a9ae68",
     "ee7ad1d8709aaac5",
-    "b68d7441ad754d81"
+    "b68d7441ad754d81",
+    "074a4bc078759e4b"
   ],
-  "report_count": 0,
+  "report_count": 1,
   "source_url": "https://api.web.nhk/sokuho/news/sokuho_news.xml",
   "state_version": 1
 }
