@@ -1,7 +1,2 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<flashNews flag="1" pubDate="Sun, 25 Oct 2026 09:04:13 +0900">
-<report category="2" date="2026/10/25 08:59" link="https://news.web.nhk/kishou-saigai/earthquake/" id="2026102509041">
-<line>■震度３■熊本地方　天草・芦北　宮崎北部平野部　宮崎南部平野部(08:59) </line>
-<line>■震度３■宮崎南部山沿い　薩摩地方　大隅地方(08:59) </line>
-</report>
-</flashNews>
+<flashNews flag="0" pubDate="Sun, 25 Oct 2026 11:30:00 +0900" />
