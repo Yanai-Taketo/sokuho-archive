@@ -1,26 +1,18 @@
 {
-  "active": true,
-  "active_details": {
-    "a2c3951da8cff128": {
-      "category": "1",
-      "date_raw": "2026/11/08 07:53",
-      "text": "東海道新幹線　全線で運転再開(07:53)"
-    }
-  },
-  "active_events": {
-    "a2c3951da8cff128": "b9bbde8138bc8c0d"
-  },
-  "change_count": 95,
-  "etag": "\"1dc04b91349d49930da6f3d025baaae9\"",
-  "flag": "1",
-  "last_change_utc": "2026-11-07T23:05:37Z",
-  "last_modified": "Sat, 07 Nov 2026 23:00:17 GMT",
+  "active": false,
+  "active_details": {},
+  "active_events": {},
+  "change_count": 96,
+  "etag": "\"0d275b4db6211969457c1f9f4a496ed5\"",
+  "flag": "0",
+  "last_change_utc": "2026-11-08T02:22:31Z",
+  "last_modified": "Sun, 08 Nov 2026 02:13:17 GMT",
   "last_poll_utc": "2026-09-09T01:15:32Z",
-  "last_sha256": "d860a48752fbed0a10769cbc8cc8e87721a224fca7317962c6ed90d09282df83",
+  "last_sha256": "473aaa8f060c00ef220f33c3650d614f85d6a5a23b02e0d9aa40a65bbf70752d",
   "last_success_utc": "2026-09-09T01:15:32Z",
   "poll_count": 1,
-  "pub_date_raw": "Sun, 08 Nov 2026 08:00:00 +0900",
-  "pub_date_utc": "2026-11-07T23:00:00Z",
+  "pub_date_raw": "Sun, 08 Nov 2026 11:13:00 +0900",
+  "pub_date_utc": "2026-11-08T02:13:00Z",
   "recent_revisions": [
     "30951be32088b1ee",
     "ada778347e742f40",
@@ -32,7 +24,7 @@
     "074a4bc078759e4b",
     "b9bbde8138bc8c0d"
   ],
-  "report_count": 1,
+  "report_count": 0,
   "source_url": "https://api.web.nhk/sokuho/news/sokuho_news.xml",
   "state_version": 1
 }
