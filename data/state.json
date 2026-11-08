@@ -1,18 +1,26 @@
 {
-  "active": false,
-  "active_details": {},
-  "active_events": {},
-  "change_count": 96,
-  "etag": "\"0d275b4db6211969457c1f9f4a496ed5\"",
-  "flag": "0",
-  "last_change_utc": "2026-11-08T02:22:31Z",
-  "last_modified": "Sun, 08 Nov 2026 02:13:17 GMT",
+  "active": true,
+  "active_details": {
+    "73c5997ebc188e41": {
+      "category": "2",
+      "date_raw": "2026/11/09 05:16",
+      "text": "■震度３■岩手内陸南部　宮城北部　宮城中部(05:16)"
+    }
+  },
+  "active_events": {
+    "73c5997ebc188e41": "9fad9357fbe80dd3"
+  },
+  "change_count": 97,
+  "etag": "\"dbd77c49e4c638f838865169f7be1b1d\"",
+  "flag": "1",
+  "last_change_utc": "2026-11-08T20:24:17Z",
+  "last_modified": "Sun, 08 Nov 2026 20:20:10 GMT",
   "last_poll_utc": "2026-09-09T01:15:32Z",
-  "last_sha256": "473aaa8f060c00ef220f33c3650d614f85d6a5a23b02e0d9aa40a65bbf70752d",
+  "last_sha256": "73f69e41884f6af64e607e1694445bc530208efc2fb26360be153af785874b95",
   "last_success_utc": "2026-09-09T01:15:32Z",
   "poll_count": 1,
-  "pub_date_raw": "Sun, 08 Nov 2026 11:13:00 +0900",
-  "pub_date_utc": "2026-11-08T02:13:00Z",
+  "pub_date_raw": "Mon, 09 Nov 2026 05:19:51 +0900",
+  "pub_date_utc": "2026-11-08T20:19:51Z",
   "recent_revisions": [
     "30951be32088b1ee",
     "ada778347e742f40",
@@ -22,9 +30,10 @@
     "ee7ad1d8709aaac5",
     "b68d7441ad754d81",
     "074a4bc078759e4b",
-    "b9bbde8138bc8c0d"
+    "b9bbde8138bc8c0d",
+    "9fad9357fbe80dd3"
   ],
-  "report_count": 0,
+  "report_count": 1,
   "source_url": "https://api.web.nhk/sokuho/news/sokuho_news.xml",
   "state_version": 1
 }
