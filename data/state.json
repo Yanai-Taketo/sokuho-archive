@@ -1,18 +1,26 @@
 {
-  "active": false,
-  "active_details": {},
-  "active_events": {},
-  "change_count": 108,
-  "etag": "\"a2e1cefd9946fe54aeda377cababf57c\"",
-  "flag": "0",
-  "last_change_utc": "2026-11-15T01:16:56Z",
-  "last_modified": "Sat, 14 Nov 2026 21:37:17 GMT",
+  "active": true,
+  "active_details": {
+    "a5f91b07b5b399cf": {
+      "category": "1",
+      "date_raw": "2026/11/16 00:19",
+      "text": "福岡市長選　１３人の候補者　いずれも法定得票数に届かず再選挙の見通し(00:19)"
+    }
+  },
+  "active_events": {
+    "a5f91b07b5b399cf": "7e6e64850906b5bc"
+  },
+  "change_count": 109,
+  "etag": "\"3be5711ac8030dfca742eadb1edb56de\"",
+  "flag": "1",
+  "last_change_utc": "2026-11-15T15:20:42Z",
+  "last_modified": "Sun, 15 Nov 2026 15:19:19 GMT",
   "last_poll_utc": "2026-09-09T01:15:32Z",
-  "last_sha256": "edfae2af7fc46f239a2cc37243caf44ae7aaac78163cc020b517fa5e6990b0a8",
+  "last_sha256": "7ea67d6377340900f153ce819e035dda47c1919e674829b32881f76c5d292c70",
   "last_success_utc": "2026-09-09T01:15:32Z",
   "poll_count": 1,
-  "pub_date_raw": "Sun, 15 Nov 2026 06:37:00 +0900",
-  "pub_date_utc": "2026-11-14T21:37:00Z",
+  "pub_date_raw": "Mon, 16 Nov 2026 00:19:01 +0900",
+  "pub_date_utc": "2026-11-15T15:19:01Z",
   "recent_revisions": [
     "30951be32088b1ee",
     "ada778347e742f40",
@@ -24,9 +32,10 @@
     "074a4bc078759e4b",
     "b9bbde8138bc8c0d",
     "9fad9357fbe80dd3",
-    "abd7a7dc4985c2af"
+    "abd7a7dc4985c2af",
+    "7e6e64850906b5bc"
   ],
-  "report_count": 0,
+  "report_count": 1,
   "source_url": "https://api.web.nhk/sokuho/news/sokuho_news.xml",
   "state_version": 1
 }
