@@ -1,26 +1,18 @@
 {
-  "active": true,
-  "active_details": {
-    "bc5470658422503e": {
-      "category": "2",
-      "date_raw": "2026/11/15 06:17",
-      "text": "■震度３■天草・芦北(06:17)"
-    }
-  },
-  "active_events": {
-    "bc5470658422503e": "abd7a7dc4985c2af"
-  },
-  "change_count": 107,
-  "etag": "\"ce6aa43a62dead9677c2791d12784557\"",
-  "flag": "1",
-  "last_change_utc": "2026-11-14T21:35:06Z",
-  "last_modified": "Sat, 14 Nov 2026 21:21:09 GMT",
+  "active": false,
+  "active_details": {},
+  "active_events": {},
+  "change_count": 108,
+  "etag": "\"a2e1cefd9946fe54aeda377cababf57c\"",
+  "flag": "0",
+  "last_change_utc": "2026-11-15T01:16:56Z",
+  "last_modified": "Sat, 14 Nov 2026 21:37:17 GMT",
   "last_poll_utc": "2026-09-09T01:15:32Z",
-  "last_sha256": "5e1abe157b6d138707b78df717305a8c85b544bba6ea9b6f5da8a4319752bcee",
+  "last_sha256": "edfae2af7fc46f239a2cc37243caf44ae7aaac78163cc020b517fa5e6990b0a8",
   "last_success_utc": "2026-09-09T01:15:32Z",
   "poll_count": 1,
-  "pub_date_raw": "Sun, 15 Nov 2026 06:20:50 +0900",
-  "pub_date_utc": "2026-11-14T21:20:50Z",
+  "pub_date_raw": "Sun, 15 Nov 2026 06:37:00 +0900",
+  "pub_date_utc": "2026-11-14T21:37:00Z",
   "recent_revisions": [
     "30951be32088b1ee",
     "ada778347e742f40",
@@ -34,7 +26,7 @@
     "9fad9357fbe80dd3",
     "abd7a7dc4985c2af"
   ],
-  "report_count": 1,
+  "report_count": 0,
   "source_url": "https://api.web.nhk/sokuho/news/sokuho_news.xml",
   "state_version": 1
 }
