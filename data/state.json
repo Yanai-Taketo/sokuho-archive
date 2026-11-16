@@ -1,18 +1,26 @@
 {
-  "active": false,
-  "active_details": {},
-  "active_events": {},
-  "change_count": 110,
-  "etag": "\"5ad0943f871146f111b8b3f2ad011477\"",
-  "flag": "0",
-  "last_change_utc": "2026-11-15T20:26:35Z",
-  "last_modified": "Sun, 15 Nov 2026 15:39:18 GMT",
+  "active": true,
+  "active_details": {
+    "90ab7f612eca9b3b": {
+      "category": "1",
+      "date_raw": "2026/11/16 08:53",
+      "text": "７－９月のＧＤＰ　年率－０．１％　４期ぶりのマイナス(08:53)"
+    }
+  },
+  "active_events": {
+    "90ab7f612eca9b3b": "2b1058be7e319ac4"
+  },
+  "change_count": 111,
+  "etag": "\"1f059bf972c450cdc17730a9ab98f538\"",
+  "flag": "1",
+  "last_change_utc": "2026-11-16T00:11:14Z",
+  "last_modified": "Sun, 15 Nov 2026 23:54:12 GMT",
   "last_poll_utc": "2026-09-09T01:15:32Z",
-  "last_sha256": "3a82d1e3dc3bbd4f63b7c52419df7ac2669ba2c8f63fd72f8e4ad99b70b188c3",
+  "last_sha256": "0e64c9f03fa32450b6a715ab82ff4aaec1a1e784a6ffca9410c41a8a3f8952d4",
   "last_success_utc": "2026-09-09T01:15:32Z",
   "poll_count": 1,
-  "pub_date_raw": "Mon, 16 Nov 2026 00:39:00 +0900",
-  "pub_date_utc": "2026-11-15T15:39:00Z",
+  "pub_date_raw": "Mon, 16 Nov 2026 08:53:52 +0900",
+  "pub_date_utc": "2026-11-15T23:53:52Z",
   "recent_revisions": [
     "30951be32088b1ee",
     "ada778347e742f40",
@@ -25,9 +33,10 @@
     "b9bbde8138bc8c0d",
     "9fad9357fbe80dd3",
     "abd7a7dc4985c2af",
-    "7e6e64850906b5bc"
+    "7e6e64850906b5bc",
+    "2b1058be7e319ac4"
   ],
-  "report_count": 0,
+  "report_count": 1,
   "source_url": "https://api.web.nhk/sokuho/news/sokuho_news.xml",
   "state_version": 1
 }
