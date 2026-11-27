@@ -1,18 +1,26 @@
 {
-  "active": false,
-  "active_details": {},
-  "active_events": {},
-  "change_count": 128,
-  "etag": "\"7bf6037447cac48e1c712a624716f946\"",
-  "flag": "0",
-  "last_change_utc": "2026-11-26T02:23:44Z",
-  "last_modified": "Wed, 25 Nov 2026 22:51:18 GMT",
+  "active": true,
+  "active_details": {
+    "15db16d74a529f97": {
+      "category": "1",
+      "date_raw": "2026/11/27 11:33",
+      "text": "関文科相への問責決議案　与党側などの反対多数で否決(11:33)"
+    }
+  },
+  "active_events": {
+    "15db16d74a529f97": "dccf58df231bcd9c"
+  },
+  "change_count": 129,
+  "etag": "\"0f0d269c2071910dd2047c6fb3462462\"",
+  "flag": "1",
+  "last_change_utc": "2026-11-27T02:51:00Z",
+  "last_modified": "Fri, 27 Nov 2026 02:33:41 GMT",
   "last_poll_utc": "2026-09-09T01:15:32Z",
-  "last_sha256": "7b1f1a73199755dee8a6fd03de11c54a0b15ff8516c51c5716d75929a8722453",
+  "last_sha256": "05480394cc7d0254d26ce367f8431e6f78aed21bbceb0e8ac08eb6971f36b88a",
   "last_success_utc": "2026-09-09T01:15:32Z",
   "poll_count": 1,
-  "pub_date_raw": "Thu, 26 Nov 2026 07:51:00 +0900",
-  "pub_date_utc": "2026-11-25T22:51:00Z",
+  "pub_date_raw": "Fri, 27 Nov 2026 11:33:21 +0900",
+  "pub_date_utc": "2026-11-27T02:33:21Z",
   "recent_revisions": [
     "30951be32088b1ee",
     "ada778347e742f40",
@@ -27,9 +35,10 @@
     "abd7a7dc4985c2af",
     "7e6e64850906b5bc",
     "2b1058be7e319ac4",
-    "d1393b11d5c441fc"
+    "d1393b11d5c441fc",
+    "dccf58df231bcd9c"
   ],
-  "report_count": 0,
+  "report_count": 1,
   "source_url": "https://api.web.nhk/sokuho/news/sokuho_news.xml",
   "state_version": 1
 }
